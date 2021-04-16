@@ -9,6 +9,8 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 public struct NeoButtonStyle: ButtonStyle {
+    private let cornerRadius: CGFloat = 30
+    
     public let lightStyle: Bool
     public var baseColor: Color?
     public var innerColor: Color?
@@ -35,15 +37,15 @@ public struct NeoButtonStyle: ButtonStyle {
                 Group {
                     if !configuration.isPressed { /// determine if the button should looked pressed or not
                         ZStack {
-                            Capsule()
+                            RoundedRectangle(cornerRadius: cornerRadius)
                                 .fill(fillBaseColor)
                                 .northWestShadow(radius: isBeveled ? 3 : 16, offset: isBeveled ? 1 : 6 )
                             if isBeveled {
-                                Capsule() /// base color in the background.. so we can `tint` the fill color on top
+                                RoundedRectangle(cornerRadius: cornerRadius) /// base color in the background.. so we can `tint` the fill color on top
                                     .inset(by: 3)
                                     .fill(fillBaseColor)
                                     .southEastShadow(radius: 1, offset: 1)
-                                Capsule()
+                                RoundedRectangle(cornerRadius: cornerRadius)
                                     .inset(by: 3)
                                     .fill(fillInnerColor)
                                     .brightness(buttonBrightness)
@@ -54,15 +56,15 @@ public struct NeoButtonStyle: ButtonStyle {
                         }
                     } else {
                         ZStack {
-                            Capsule()
+                            RoundedRectangle(cornerRadius: cornerRadius)
                                 .fill(fillBaseColor)
                                 .southEastShadow(radius: isBeveled ? 3 : 3, offset: isBeveled ? 1 : 1 )
                             if isBeveled {
-                                Capsule() /// base color in the background.. so we can `tint` the fill color on top
+                                RoundedRectangle(cornerRadius: cornerRadius) /// base color in the background.. so we can `tint` the fill color on top
                                     .inset(by: 3)
                                     .fill(fillBaseColor)
                                     .northWestShadow(radius: 1, offset: 1)
-                                Capsule()
+                                RoundedRectangle(cornerRadius: cornerRadius)
                                     .inset(by: 3)
                                     .fill(fillInnerColor)
                                     .brightness(buttonBrightness)
