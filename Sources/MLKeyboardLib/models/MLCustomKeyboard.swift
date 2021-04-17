@@ -12,8 +12,8 @@ import Foundation
 public class MLCustomKeyboardButton: MLKeyboardButtonModel {
     public var keyboardDelegate: MLKeyboardDelegate?
     
-    public let type: MLKeyboardButtonType
-    public let behaviour: MLKeyboardButtonBehaviour
+    public var type: MLKeyboardButtonType
+    public var behaviour: MLKeyboardButtonBehaviour
     public var value: String
     public var imageName: String
     
@@ -34,7 +34,10 @@ public class MLCustomKeyboardButton: MLKeyboardButtonModel {
             keyboardDelegate.remove()
         case .clear:
             keyboardDelegate.clear()
+        case .submit:
+            keyboardDelegate.submit()
         }
+        
     }
     
 }
@@ -49,6 +52,8 @@ public class MLCustomKeyboard: MLKeyboard, ObservableObject {
             print("Didset published text \(text)")
         }
     }
+    
+    @Published public var submitted: Bool = false
     
     public var buttons: [MLKeyboardButtonModel]
     
@@ -71,6 +76,10 @@ public class MLCustomKeyboard: MLKeyboard, ObservableObject {
     
     public func clear() {
         text = ""
+    }
+    
+    public func submit() {
+        self.submitted = true
     }
     
 }

@@ -16,7 +16,7 @@ public enum MLKeyboardButtonType {
 
 /// MLKeyboardButton behaviour. Show how the value of the button is supposed to be treated.  ex .add will mathematically add two .numeric values .. but add it like strings if the button is .alphaNumeric ( .numeric 5 .add 6 = 11, .alphaNumeric 5 .add 6 = 56)
 public enum MLKeyboardButtonBehaviour {
-    case add, subtract, clear
+    case add, subtract, clear, submit
 }
 
 
@@ -26,15 +26,16 @@ public protocol MLKeyboardDelegate {
     func add(value: String)
     func remove()
     func clear()
+    func submit()
 }
 
 
 /// The internal workings and data of a  ML'button'. It specifies the type (.alphanumeric, .numeric), the behaviour (.add, .subtract, .clear and so on). It can have a value but that value can be blank if the behaviour specifies some kind of action like .clear.
 public protocol MLKeyboardButtonModel {
-    var type: MLKeyboardButtonType { get }
-    var behaviour: MLKeyboardButtonBehaviour { get }
+    var type: MLKeyboardButtonType { get set}
+    var behaviour: MLKeyboardButtonBehaviour { get set }
     var value: String { get }
-    var imageName: String { get }
+    var imageName: String { get set }
     var keyboardDelegate: MLKeyboardDelegate? { get set }
     
     func trigger()
@@ -46,6 +47,7 @@ public protocol MLKeyboardButtonModel {
 public protocol MLKeyboard: MLKeyboardDelegate {
     var buttons: [MLKeyboardButtonModel] { get set }
     var text: String { get }
+    var submitted: Bool { get }
     
     func add(button: inout MLKeyboardButtonModel)
 }

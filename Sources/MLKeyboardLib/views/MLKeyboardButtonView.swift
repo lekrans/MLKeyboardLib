@@ -34,23 +34,29 @@ import SwiftUI
 
 
 /// Simple view for a MLKeyboardButtonModel. It is locked to the .add behaviour
-/// For a more dynamic behaving view see: 
+/// For a more dynamic behaving view see:
+
+public protocol MLKeyboardButtonViewProtocol: View {
+    var buttonModel: MLKeyboardButtonModel? { get set }
+}
+
+
 @available(iOS 13.0, *)
-public struct MLKeyboardButtonView: View {
-    var button: MLKeyboardButtonModel?
+public struct MLKeyboardButtonView: MLKeyboardButtonViewProtocol {
+    public var buttonModel: MLKeyboardButtonModel?
     
     public init(value: String, keyboard: MLCustomKeyboard) {
-        self.button = MLCustomKeyboardButton(type: .alphanumeric, behaviour: .add, value: value)
-        keyboard.add(button: &self.button!)
+        self.buttonModel = MLCustomKeyboardButton(type: .alphanumeric, behaviour: .add, value: value)
+        keyboard.add(button: &self.buttonModel!)
     }
     
     public var body: some View {
         Button(action: {
-            self.button?.trigger()
+            self.buttonModel?.trigger()
         }, label: {
             HStack {
             GeometryReader { geometry in
-                Text(button!.value)
+                Text(buttonModel!.value)
                     .padding()
                     .frame(width: geometry.size.width, height: 60)
                     .foregroundColor(.white)
@@ -60,5 +66,7 @@ public struct MLKeyboardButtonView: View {
         })
     }
 }
+
+
 
 
