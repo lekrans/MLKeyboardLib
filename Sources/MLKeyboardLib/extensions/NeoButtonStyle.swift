@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// NeoButtonStyle
 @available(iOS 13.0, *)
 public struct NeoButtonStyle: ButtonStyle {
     private let cornerRadius: CGFloat = 30
