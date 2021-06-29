@@ -35,7 +35,7 @@ import SwiftUI
 
 /// Simple view for a MLKeyboardButtonModel. It is locked to the .add behaviour
 /// For a more dynamic behaving view see:
-
+@available(iOS 13.0, *)
 public protocol MLKeyboardButtonViewProtocol: View {
     var buttonModel: MLKeyboardButtonModel? { get set }
 }
